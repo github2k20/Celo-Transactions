@@ -35,7 +35,7 @@ const { ethers } = require('ethers')
 
 const web3 = new Web3(`https://celo-alfajores--rpc.datahub.figment.io/apikey/${process.env.FIGMENT_API_KEY}/`)
 
-//const web3 = new Web3('https://forno.celo.org')
+// const web3 = new Web3('https://forno.celo.org')
 
 const kit = ContractKit.newKitFromWeb3(web3)
 
@@ -107,6 +107,7 @@ let CeloTx = {
     from: account.address
 }
 
+
 // To use ContractKit to sign the transaction, you need to add your private key to the kit
 kit.connection.addAccount(account.privateKey)
 kit.defaultAccount = account.address
@@ -116,7 +117,9 @@ async function signCeloTx(){
     let celoWallet = await kit.getWallet()
     let signedCeloTx = await celoWallet.signTransaction(CeloTx)
     
-    console.log('Signed Celo Tx: %o', signedCeloTx)
+//     console.log('Signed Celo Tx: %o', signedCeloTx)
+// console.log((await web3.eth.getBalance(account.address)).toString())
+
 }
 
 // signCeloTx()
@@ -150,7 +153,7 @@ async function signCeloTx(){
     Requirements:
 
     - Before you can send a transaction, you will need to fund your account 
-    with CELO and/or cUSD to pay for transaction fees.
+    with CELO and/or cUSD to pay for transaction fees.1
 
     https://celo.org/developers/faucet
 
@@ -184,10 +187,10 @@ async function sendCELOTx(){
     let tx = await kit.sendTransaction(CeloTx)
     let receipt = await tx.waitReceipt()
 
-    console.log(`CELO tx: https://alfajores-blockscout.celo-testnet.org/tx/${receipt.transactionHash}/token_transfers `)
+    console.log(`CELO tx: https://alfajores-blockscout.celo-testnet.org/tx/${receipt.transactionHash}/token-transfers `)
 }
 
-// sendCELOTx()
+ sendCELOTx()
 
 /*
     This example showed how to generate transactions to send CELO "natively",
